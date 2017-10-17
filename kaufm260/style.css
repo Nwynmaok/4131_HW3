@@ -118,21 +118,16 @@ html{
   100% { transform: translateX(-100%); }
 }
 
-#FraserPic {
+/*#FraserPic {
   display: none;
-  border: 1px solid black;
 }
 #KellerPic {
   display: none;
-  border: 1px solid black;
 }
 #BruininksPic {
   display:none;
-  border: 1px solid black;
 }
-#initPic {
-  border: 1px solid black;
-}
+
 .Pic {
   width:100%;
   height:100%;
@@ -140,7 +135,7 @@ html{
 .initPic {
   width:100%;
   height:100%;
-}
+}*/
 
 #Keller1 {
   background-size: 300px 200px;
@@ -174,4 +169,41 @@ html{
 }
 #Fraser2 {
   background-size: 300px 250px;
+}
+#Lind1 {
+  background-size: 300px 250px;
+}
+
+.table {
+  width: 75%;
+  float: left;
+}
+
+.twitter {
+  width: 25%;
+  margin-left: 75%;
+}
+
+.container2 {
+  width: 100%;
+}
+
+#map {
+  height: 800px;
+  width: 100%;
+}
+#restaurantRange {
+  width: 100%;
+}
+
+#numberrange {
+  height: 200px;
+}
+#mileRange {
+  text-align: center;
+  width:100%;
+  padding-bottom: 20px;
+}
+#mileIncr {
+  text-align: center;
 }
