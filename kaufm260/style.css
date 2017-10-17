@@ -202,8 +202,32 @@ html{
 #mileRange {
   text-align: center;
   width:100%;
-  padding-bottom: 20px;
+  padding-bottom: 15px;
+  padding-top: 10px;
+  line-height: 150%;
 }
 #mileIncr {
   text-align: center;
+}
+#travelType {
+  padding-top: 30px;
+  line-height: 150%;
+}
+#buttonholder {
+  text-align: center;
+  line-height: 200%;
+}
+#directionsPanel {
+  width: 25%;
+  margin-left: 75%;
+  height: 800px;
+  display: none;
+  overflow: scroll;
+}
+#footer {
+  display: inline-block;
+  width: 100%;
+}
+#mapInput {
+  height: 318px;
 }

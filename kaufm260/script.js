@@ -434,12 +434,18 @@ var map;
 var infowindow;
 var pos;
 var geocoder;
+var markers = [];
+var directionsDisplay;
+var UMN = {lat: 44.9729, lng: -93.2353};
+
 function initMap() {
-  var UMN = {lat: 44.9729, lng: -93.2353};
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 14,
     center: UMN
   });
+
+  directionsDisplay = new google.maps.DirectionsRenderer();
+
 
   geocoder = new google.maps.Geocoder();
   geocodeAddress(geocoder, map);
@@ -484,7 +490,6 @@ function callback(results, status) {
   }
 }
 function updateMarkers() {
-  var UMN = {lat: 44.9729, lng: -93.2353};
   if (!pos) {
     pos = UMN;
   }
@@ -497,6 +502,16 @@ function updateMarkers() {
   service.nearbySearch(newRange, callback);
 }
 
+//reference from: https://developers.google.com/maps/documentation/javascript/examples/marker-remove
+function clearMarkers() {
+  setMapOnAll(null);
+}
+
+function setMapOnAll(map) {
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(map);
+  }
+}
 
 // reference from: https://developers.google.com/maps/documentation/javascript/examples/place-search?authuser=1
 function createMarker(place) {
@@ -507,6 +522,7 @@ function createMarker(place) {
     map: map,
     position: place.geometry.location
   });
+  markers.push(marker);
 
   google.maps.event.addListener(marker, 'click', function() {
     infowindow.setContent(place.name + "</br>" + place.vicinity);
@@ -514,19 +530,43 @@ function createMarker(place) {
   });
 }
 
-// function geocodeReverse(geocoder, map, infowindow, location) {
-//   var Addr;
-//   geocoder.geocode({'location': location}, function(results, status) {
-//     if (status === 'OK') {
-//       if (results[0]) {
-//         //console.log(results[0].formatted_address);
-//         window.Addr = results[0].formatted_address;
-//         //console.log(window.Addr);
-//       }
-//     }
-//   });
-//   return window.Addr;
-// }
+//refence from: https://developers.google.com/maps/documentation/javascript/directions
+function getDirections() {
+  var directionsService = new google.maps.DirectionsService()
+  var start, end, mode;
+  directionsDisplay.setMap(map);
+  directionsDisplay.setPanel(document.getElementById('directionsPanel'));
+  if (!pos) {
+    start = UMN;
+  } else {
+    start = pos;
+  }
+  end = document.getElementById('dest').value;
+  var modeSelect = document.getElementsByName("travel");
+  for (var i = 0; i < modeSelect.length; i++) {
+    if (modeSelect[i].checked) {
+      mode = modeSelect[i].value;
+    }
+  }
+  if (!mode) {
+    alert('Please select transit method');
+  } else {
+    var request = {
+      origin: start,
+      destination: end,
+      travelMode: mode
+    };
+    directionsService.route(request, function(result, status) {
+      if (status == 'OK') {
+        directionsDisplay.setDirections({routes: []});
+        directionsDisplay.setDirections(result);
+      }
+    });
+    document.getElementById("map").style.width = "75%";
+    document.getElementById("map").style.float = "left";
+    document.getElementById("directionsPanel").style.display = "block";
+  }
+}
 
 function increment()
 {
@@ -534,6 +574,21 @@ function increment()
   var number = parseFloat(value.innerHTML);
   number += .25;
   document.getElementById('Distance').innerHTML = number;
+  updateMarkers();
+}
+
+function setRange()
+{
+  var newNum = document.getElementById("updateNum").value;
+  if(!newNum) {
+    newNum = 0;
+  }
+  var value = document.getElementById('Distance');
+  var number = parseFloat(value.innerHTML);
+  if(newNum < number) {
+    clearMarkers();
+  }
+  document.getElementById('Distance').innerHTML = newNum;
   updateMarkers();
 }
 

@@ -116,31 +116,55 @@
         </table>
       </div>
       <div class="twitter">
-        <a class="twitter-timeline"  href="https://twitter.com/hashtag/UMN" data-widget-id="920103766757658625">#UMN Tweets</a>
-        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
-        </script>
+        <a class="twitter-timeline"  href="https://twitter.com/hashtag/UMN" data-widget-id="920352412593999872">#UMN Tweets</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
       </div>
-    </div>
+    <div id="mapInput">
     <div id="restaurantRange">
       <form id="restaurant">
 
-        <div id="mileRange"><b>Search for nearby restaurants</br>Miles:</b></div>
+        <div id="mileRange"><b>Search for nearby restaurants</b></div>
         <div id="mileIncr">
-          <input type="button" onclick="increment();" value="+">
-          <p id="Distance">0</p>
+          Miles: <span id="Distance">0</span>&nbsp; <input type="button" onclick="increment();" value="+"><br>
+
+        </div>
+        <div id="buttonholder">
+          Specify a range:
+          <input type="number" name="Distance" id="updateNum" value="0">
+          <input id="centerSubmit" onclick="setRange();" type="button" value="Find Restaurants">
         </div>
       </form>
     </div>
+    <div id="Destination">
+      <form id="destination">
+        <div id="travelType">
+          <b>Get directions from your location:</b>
+          <input type="text" id="dest" name="dest" placeholder="Destination">
+          <input onclick="getDirections();" type="button" value="Get Directions"><br>
+          &nbsp; &nbsp;<input type="radio" name="travel" value="WALKING">&nbsp; Walking<br>
+          &nbsp; &nbsp;<input type="radio" name="travel" value="BICYCLING">&nbsp; Biking<br>
+          &nbsp; &nbsp;<input type="radio" name="travel" value="TRANSIT">&nbsp; Public Transit<br>
+          &nbsp; &nbsp;<input type="radio" name="travel" value="DRIVING">&nbsp; Driving<br>
+        </div>
+      </form>
+    </div>
+  </div>
+  </div>
+
+  <div id="Maps">
     <div id = "map">
       <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgmOCL_dIeyMAlX2y00iUqAzBN5j7svdo&libraries=places&callback=initMap">
       </script>
     </div>
+    <div id="directionsPanel">
+    </div>
+  </div>
     <!-- <div id="initPic"><img class = "initPic" src="images/Northrop_Mall_Winter.png" alt="Northrop (default)"></div>
     <div id="KellerPic"><img class = "Pic" src="images/Keller_Hall_plaza.jpg" alt="Keller Hall"></div>
     <div id="BruininksPic"><img class = "Pic" src="images/Bruininks_Hall_Picture.jpg" alt="Bruininks Hall"></div>
     <div id="FraserPic"><img class = "Pic" src="images/Fraser_Hall.jpg" alt="Fraser Hall"></div> -->
   </div>
-  <footer>
+  <footer id="footer">
     <br>
     Tested in Chrome, Safari and Firefox
   </footer>
